@@ -1,34 +1,45 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
     steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Instalar dependencias
-        run: npm ci
-
-      - name: Ejecutar pruebas
-        run: npm test
-
-      - name: Guardar resultados de pruebas
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: resultados-tests
-          path: ./test
-          
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run unit tests
+      run: npm test -- test/unit
+    
+    - name: Run integration tests
+      run: npm test -- test/integration
+    
+    - name: Generate test coverage
+      run: npm run test:coverage
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+        fail_ci_if_error: true

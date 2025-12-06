@@ -1,0 +1,3 @@
+﻿SKU,Nombre,Categoria,Precio,Stock_Actual,Stock_Minimo,Estado,Necesita_Reposicion
+PROD-001,Disco Duro 1TB SSD,Almacenamiento,79.99,59,5,Activo,NO
+PROD-002,Memoria RAM 8GB,Memoria,45.5,35,3,Activo,NO

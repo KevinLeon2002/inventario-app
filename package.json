@@ -1,24 +1,39 @@
 {
   "name": "inventario-app",
   "version": "1.0.0",
-  "description": "Sistema de gestión comercial TecnoRepuestos S.A.",
-  "main": "server.js",
+  "description": "Sistema Integral de Gestión Comercial para TecnoRepuestos S.A.",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest --runInBand",
+    "test:unit": "jest test/unit --runInBand",
+    "test:integration": "jest test/integration --runInBand",
     "lint": "eslint src/"
   },
-  "keywords": [],
-  "author": "Kevin León",
-  "license": "MIT",
+  "keywords": [
+    "inventario",
+    "gestión",
+    "compras",
+    "ventas",
+    "nodejs"
+  ],
+  "author": "León Suarez Kevin Andres",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "joi": "^17.11.0",
+    "uuid": "^9.0.1",
+    "pdfkit": "^0.14.0"
   },
   "devDependencies": {
-    "eslint": "^8.45.0",
+    "nodemon": "^3.0.1",
     "jest": "^29.7.0",
-    "nodemon": "^2.0.22",
-    "supertest": "^6.3.4"
+    "supertest": "^6.3.3",
+    "eslint": "^8.53.0"
   }
 }
